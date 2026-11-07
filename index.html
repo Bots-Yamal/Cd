@@ -1,0 +1,1005 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090711">
+<title>Abich_uelita | Portafolio</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg: #090711;
+  --panel: #12101d;
+  --panel2: #191528;
+  --purple: #9b6cff;
+  --purple2: #7544db;
+  --light: #c9aaff;
+  --white: #f7f3ff;
+  --muted: #a39ab5;
+  --border: rgba(174,130,255,.15);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 80% 15%, rgba(111,65,190,.13), transparent 30%),
+    radial-gradient(circle at 10% 90%, rgba(104,55,180,.10), transparent 35%),
+    var(--bg);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  overflow: hidden;
+}
+
+button {
+  font: inherit;
+}
+
+#cursor-glow {
+  position: fixed;
+  width: 260px;
+  height: 260px;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(151,100,255,.12), transparent 70%);
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+body:hover #cursor-glow {
+  opacity: 1;
+}
+
+.background-grid {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .12;
+  background-image:
+    linear-gradient(rgba(160,120,255,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(160,120,255,.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+}
+
+.welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #090711;
+  transition: opacity .8s, visibility .8s;
+}
+
+.welcome.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.welcome-logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(35px, 7vw, 65px);
+  font-weight: 700;
+  letter-spacing: -3px;
+  animation: welcomeIn 1s ease both;
+}
+
+.welcome-logo span {
+  color: var(--purple);
+}
+
+.welcome-line {
+  width: 150px;
+  height: 3px;
+  margin-top: 22px;
+  background: #241a36;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.welcome-line::after {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--purple);
+  transform: translateX(-100%);
+  animation: loading 1.3s ease forwards;
+}
+
+.welcome-text {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+@keyframes loading {
+  to { transform: translateX(0); }
+}
+
+@keyframes welcomeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.app {
+  position: relative;
+  z-index: 1;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  max-width: 1500px;
+  margin: auto;
+  padding: 25px 5%;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 55px;
+}
+
+.logo {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 23px;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: var(--purple);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 13px;
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  background: #a77aff;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #a77aff;
+}
+
+main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 0;
+}
+
+.screen {
+  display: none;
+  width: 100%;
+  animation: screenIn .5s ease both;
+}
+
+.screen.active {
+  display: block;
+}
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--light);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 17px;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--purple);
+}
+
+h1, h2, h3 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+h1 {
+  font-size: clamp(42px, 7vw, 82px);
+  line-height: 1.04;
+  letter-spacing: -4px;
+}
+
+.gradient {
+  background: linear-gradient(100deg, #fff 10%, #c9aaff 55%, #8c5aff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.description {
+  max-width: 610px;
+  margin-top: 23px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.25fr .75fr;
+  align-items: center;
+  gap: 55px;
+}
+
+.hero-card {
+  position: relative;
+  min-height: 330px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 25px;
+  background: linear-gradient(145deg, rgba(32,24,51,.9), rgba(15,13,25,.9));
+  overflow: hidden;
+}
+
+.hero-card::before {
+  content: "";
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: rgba(136,83,255,.13);
+  filter: blur(55px);
+  right: -70px;
+  top: -80px;
+}
+
+.hero-symbol {
+  font-size: 75px;
+  color: var(--purple);
+  opacity: .85;
+  margin-bottom: 25px;
+}
+
+.hero-card h3 {
+  font-size: 23px;
+  position: relative;
+}
+
+.hero-card p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  margin-top: 10px;
+  position: relative;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 13px 19px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--white);
+  cursor: pointer;
+  transition: .25s;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.btn.primary {
+  background: linear-gradient(110deg, #8954e9, #a77aff);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 30px rgba(132,80,225,.2);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  border-color: var(--purple);
+}
+
+.section-heading {
+  margin-bottom: 25px;
+}
+
+.section-heading h2 {
+  font-size: clamp(29px, 4vw, 43px);
+  letter-spacing: -1.5px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  margin-top: 9px;
+  font-size: 13px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.card {
+  position: relative;
+  min-height: 155px;
+  padding: 23px;
+  background: linear-gradient(145deg, rgba(27,22,42,.96), rgba(17,15,27,.96));
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  transition: .3s;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(167,122,255,.55);
+  background: #1c1730;
+}
+
+.card-icon {
+  font-size: 25px;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.service-card {
+  cursor: pointer;
+}
+
+.service-card::after {
+  content: "↗";
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  color: var(--light);
+  font-size: 19px;
+}
+
+.detail {
+  max-width: 850px;
+  margin: auto;
+  padding: 30px;
+  background: rgba(24,20,37,.94);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+}
+
+.detail h2 {
+  font-size: clamp(25px, 4vw, 37px);
+  margin-bottom: 18px;
+}
+
+.detail p {
+  color: #b7adc8;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.detail .btn {
+  margin-top: 23px;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.info-box {
+  padding: 20px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 15px;
+}
+
+.info-box span {
+  display: block;
+  font-size: 11px;
+  color: var(--light);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.info-box strong {
+  font-size: 14px;
+}
+
+.contact-card {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  padding: 40px 25px;
+  background: linear-gradient(145deg, #1b1530, #100e19);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+}
+
+.contact-icon {
+  font-size: 43px;
+  margin-bottom: 17px;
+}
+
+.contact-card h2 {
+  font-size: 35px;
+}
+
+.contact-card p {
+  color: var(--muted);
+  margin-top: 12px;
+  font-size: 13px;
+}
+
+.discord-name {
+  display: inline-block;
+  padding: 14px 22px;
+  margin-top: 24px;
+  border: 1px solid rgba(167,122,255,.3);
+  background: rgba(137,84,233,.12);
+  color: #d8c3ff;
+  border-radius: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+}
+
+.faq-list {
+  display: grid;
+  gap: 12px;
+}
+
+.faq-item {
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--panel);
+}
+
+.faq-item h3 {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.faq-item p {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding-top: 17px;
+  border-top: 1px solid rgba(174,130,255,.1);
+  color: #777084;
+  font-size: 10px;
+}
+
+footer strong {
+  color: #b99aff;
+  font-weight: 600;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin: 17px 0 4px;
+}
+
+nav button {
+  border: 1px solid transparent;
+  background: transparent;
+  color: #91889f;
+  padding: 10px 13px;
+  border-radius: 10px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: .25s;
+}
+
+nav button:hover,
+nav button.active {
+  color: white;
+  background: rgba(145,95,235,.14);
+  border-color: var(--border);
+}
+
+@media (max-width: 750px) {
+  body {
+    overflow: auto;
+  }
+
+  .app {
+    height: 100dvh;
+    min-height: 650px;
+    padding: 17px 5%;
+  }
+
+  header {
+    min-height: 45px;
+  }
+
+  .logo {
+    font-size: 19px;
+  }
+
+  .status {
+    font-size: 9px;
+    padding: 8px 10px;
+  }
+
+  main {
+    overflow-y: auto;
+    align-items: flex-start;
+    padding: 28px 0;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  h1 {
+    font-size: clamp(43px, 12vw, 65px);
+    letter-spacing: -2px;
+  }
+
+  .hero-card {
+    min-height: 190px;
+    padding: 22px;
+  }
+
+  .hero-symbol {
+    font-size: 43px;
+    margin-bottom: 10px;
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: auto;
+  }
+
+  .detail {
+    padding: 22px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  nav {
+    gap: 4px;
+  }
+
+  nav button {
+    padding: 9px 8px;
+    font-size: 10px;
+  }
+
+  footer {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 380px) {
+  .header-right .status {
+    display: none;
+  }
+
+  nav button {
+    font-size: 9px;
+    padding: 8px 6px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="cursor-glow"></div>
+<div class="background-grid"></div>
+
+<div class="welcome" id="welcome">
+  <div class="welcome-logo">Abich<span>_uelita</span></div>
+  <div class="welcome-line"></div>
+  <div class="welcome-text">Bienvenido a mi portafolio</div>
+</div>
+
+<div class="app">
+
+<header>
+  <div class="logo">Abich<span>_uelita</span></div>
+  <div class="header-right">
+    <div class="status">
+      <span class="status-dot"></span>
+      Portafolio personal
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- INICIO -->
+<section class="screen active" id="inicio">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">PORTAFOLIO PERSONAL</div>
+      <h1>Hola, soy<br><span class="gradient">Abich_uelita.</span></h1>
+      <p class="description">
+        Un espacio para conocer quién soy, mi experiencia en comunidades gaming
+        y los servicios relacionados con Discord y Minecraft.
+      </p>
+      <div class="actions">
+        <button class="btn primary" onclick="showScreen('servicios')">
+          Explorar servicios ↗
+        </button>
+        <button class="btn" onclick="showScreen('contacto')">
+          Contacto
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <div class="hero-symbol">✦</div>
+      <h3>Discord & Minecraft</h3>
+      <p>
+        Desarrollo y configuración de sistemas, administración de comunidades
+        y soporte técnico.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE MI -->
+<section class="screen" id="sobre">
+  <div class="section-heading">
+    <div class="eyebrow">PRESENTACIÓN</div>
+    <h2>Sobre <span class="gradient">mí.</span></h2>
+    <p>Quién soy y qué hago.</p>
+  </div>
+
+  <div class="detail">
+    <h2>Quién soy</h2>
+    <p>
+      Este apartado está preparado para agregar una presentación personal
+      escrita por Abich_uelita.
+    </p>
+    <div class="info-grid">
+      <div class="info-box">
+        <span>Qué hago</span>
+        <strong>Discord y Minecraft</strong>
+      </div>
+      <div class="info-box">
+        <span>Ámbito</span>
+        <strong>Comunidades gaming</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCIA -->
+<section class="screen" id="experiencia">
+  <div class="section-heading">
+    <div class="eyebrow">TRAYECTORIA</div>
+    <h2>Experiencia <span class="gradient">profesional.</span></h2>
+    <p>Experiencia en el ámbito del Staff de comunidades gaming.</p>
+  </div>
+
+  <div class="detail">
+    <h2>Administración y gestión de comunidades</h2>
+    <p>
+      Tengo experiencia en el ámbito del Staff de comunidades gaming.
+      Realizo tareas de moderación, supervisión, organización de equipos,
+      gestión de postulaciones, seguimiento de actividades y coordinación
+      del personal.
+    </p>
+  </div>
+</section>
+
+<!-- TECNOLOGIA -->
+<section class="screen" id="tecnologia">
+  <div class="section-heading">
+    <div class="eyebrow">CONOCIMIENTOS</div>
+    <h2>Tecnología y <span class="gradient">habilidades.</span></h2>
+    <p>Herramientas y áreas mencionadas en los servicios.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">💬</div>
+      <h3>Discord</h3>
+      <p>Servidores, Carl-bot, Nekotina, moderación, tickets, logs, roles y automatizaciones.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">⛏️</div>
+      <h3>Minecraft</h3>
+      <p>Skripts, misiones, menús interactivos, recompensas y mecánicas personalizadas.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">👥</div>
+      <h3>Comunidades</h3>
+      <p>Moderación, supervisión, organización de equipos y gestión de postulaciones.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">⚙️</div>
+      <h3>Soporte técnico</h3>
+      <p>Configuración de herramientas, solución de errores y organización de sistemas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="screen" id="servicios">
+  <div class="section-heading">
+    <div class="eyebrow">QUÉ PUEDO OFRECER</div>
+    <h2>Mis <span class="gradient">servicios.</span></h2>
+    <p>Seleccioná una tarjeta para leer la descripción completa.</p>
+  </div>
+
+  <div class="cards">
+    <div class="card service-card" onclick="showScreen('discord')">
+      <div class="card-icon">💬</div>
+      <h3>Desarrollo y configuración de Discord</h3>
+      <p>Servidores, bots, moderación, tickets y automatizaciones.</p>
+    </div>
+
+    <div class="card service-card" onclick="showScreen('minecraft')">
+      <div class="card-icon">⛏️</div>
+      <h3>Desarrollo de Minecraft</h3>
+      <p>Skripts, misiones, menús y sistemas personalizados.</p>
+    </div>
+
+    <div class="card service-card" onclick="showScreen('comunidades')">
+      <div class="card-icon">👥</div>
+      <h3>Administración y gestión de comunidades</h3>
+      <p>Moderación, supervisión y coordinación del personal.</p>
+    </div>
+
+    <div class="card service-card" onclick="showScreen('soporte')">
+      <div class="card-icon">⚙️</div>
+      <h3>Configuración y soporte técnico</h3>
+      <p>Herramientas, errores y organización de sistemas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIO DISCORD -->
+<section class="screen" id="discord">
+  <div class="detail">
+    <div class="eyebrow">SERVICIO 01</div>
+    <h2>💬 Desarrollo y configuración de Discord</h2>
+    <p>
+      Creo y configuro servidores de Discord desde cero o mejoro los que ya
+      existen. Configuro bots como Carl-bot, Nekotina y bots de postulaciones,
+      además de sistemas de moderación, tickets, logs, roles, bienvenidas y
+      automatizaciones. También desarrollo bots personalizados desde cero,
+      con comandos y funciones adaptadas a las necesidades de cada comunidad.
+    </p>
+    <button class="btn" onclick="showScreen('servicios')">← Volver a servicios</button>
+  </div>
+</section>
+
+<!-- SERVICIO MINECRAFT -->
+<section class="screen" id="minecraft">
+  <div class="detail">
+    <div class="eyebrow">SERVICIO 02</div>
+    <h2>⛏️ Desarrollo de Minecraft</h2>
+    <p>
+      Trabajo en la creación y configuración de sistemas para servidores de
+      Minecraft. Desarrollo Skripts, misiones, menús interactivos, sistemas
+      de recompensas, mecánicas personalizadas y otras funciones para mejorar
+      la experiencia de los jugadores. También ayudo con la configuración
+      y organización de servidores.
+    </p>
+    <button class="btn" onclick="showScreen('servicios')">← Volver a servicios</button>
+  </div>
+</section>
+
+<!-- SERVICIO COMUNIDADES -->
+<section class="screen" id="comunidades">
+  <div class="detail">
+    <div class="eyebrow">SERVICIO 03</div>
+    <h2>👥 Administración y gestión de comunidades</h2>
+    <p>
+      Tengo experiencia en el ámbito del Staff de comunidades gaming.
+      Realizo tareas de moderación, supervisión, organización de equipos,
+      gestión de postulaciones, seguimiento de actividades y coordinación
+      del personal.
+    </p>
+    <button class="btn" onclick="showScreen('servicios')">← Volver a servicios</button>
+  </div>
+</section>
+
+<!-- SERVICIO SOPORTE -->
+<section class="screen" id="soporte">
+  <div class="detail">
+    <div class="eyebrow">SERVICIO 04</div>
+    <h2>⚙️ Configuración y soporte técnico</h2>
+    <p>
+      Ayudo a configurar herramientas, solucionar errores, organizar sistemas
+      y mejorar el funcionamiento de proyectos relacionados con Discord y
+      Minecraft.
+    </p>
+    <button class="btn" onclick="showScreen('servicios')">← Volver a servicios</button>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="screen" id="contacto">
+  <div class="contact-card">
+    <div class="contact-icon">✉️</div>
+    <div class="eyebrow" style="justify-content:center">CONTACTO</div>
+    <h2>Hablemos.</h2>
+    <p>Podés encontrarme en Discord.</p>
+    <div class="discord-name">abbys4171</div>
+    <br>
+    <button class="btn primary" onclick="copyDiscord()">Copiar usuario</button>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="screen" id="faq">
+  <div class="section-heading">
+    <div class="eyebrow">PREGUNTAS FRECUENTES</div>
+    <h2>FAQ <span class="gradient>.</span></h2>
+    <p>Información sobre los servicios.</p>
+  </div>
+
+  <div class="faq-list">
+    <div class="faq-item">
+      <h3>¿Qué servicios se ofrecen?</h3>
+      <p>Desarrollo y configuración de Discord, desarrollo de Minecraft, administración de comunidades y soporte técnico.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué bots de Discord se configuran?</h3>
+      <p>Carl-bot, Nekotina y bots de postulaciones.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Qué se puede desarrollar para Minecraft?</h3>
+      <p>Skripts, misiones, menús interactivos, sistemas de recompensas y mecánicas personalizadas.</p>
+    </div>
+
+    <div class="faq-item">
+      <h3>¿Cómo puedo contactar?</h3>
+      <p>Mediante Discord: abbys4171.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<nav>
+  <button class="active" data-screen="inicio" onclick="showScreen('inicio')">Inicio</button>
+  <button data-screen="sobre" onclick="showScreen('sobre')">Sobre mí</button>
+  <button data-screen="experiencia" onclick="showScreen('experiencia')">Experiencia</button>
+  <button data-screen="tecnologia" onclick="showScreen('tecnologia')">Tecnología</button>
+  <button data-screen="servicios" onclick="showScreen('servicios')">Servicios</button>
+  <button data-screen="faq" onclick="showScreen('faq')">FAQ</button>
+  <button data-screen="contacto" onclick="showScreen('contacto')">Contacto</button>
+</nav>
+
+<footer>
+  <span>© <strong>Abich_uelita</strong></span>
+  <span>Portafolio personal</span>
+</footer>
+
+</div>
+
+<script>
+const screens = document.querySelectorAll('.screen');
+const navButtons = document.querySelectorAll('nav button');
+
+function showScreen(id) {
+  screens.forEach(screen => {
+    screen.classList.remove('active');
+  });
+
+  const target = document.getElementById(id);
+
+  if (target) {
+    target.classList.remove('active');
+    void target.offsetWidth;
+    target.classList.add('active');
+  }
+
+  navButtons.forEach(button => {
+    button.classList.toggle('active', button.dataset.screen === id);
+  });
+}
+
+function copyDiscord() {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText('abbys4171')
+      .then(() => alert('Usuario de Discord copiado: abbys4171'))
+      .catch(() => alert('Mi usuario de Discord es: abbys4171'));
+  } else {
+    alert('Mi usuario de Discord es: abbys4171');
+  }
+}
+
+// Pantalla de bienvenida
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('welcome').classList.add('hide');
+  }, 1700);
+});
+
+// Efecto de cursor violeta para PC
+const glow = document.getElementById('cursor-glow');
+
+window.addEventListener('mousemove', (event) => {
+  glow.style.left = event.clientX + 'px';
+  glow.style.top = event.clientY + 'px';
+});
+</script>
+
+</body>
+</html>
